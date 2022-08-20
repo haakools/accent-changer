@@ -3,7 +3,10 @@
  2. Concatenate all the indian voices X and the American voices Y in the same order. Pair them as X,Y = batch_data for model
 
 ###  Dataset
+Get the dataset accentdb_extender.tar.gz from accent_db and put it into the dataset folder. 
+`harvard_senteces.txt` is the file containing what the transcripts contains.
 
+Need to create tf dataset loaded. Tfrecord??
 
 ### Feature Engineering
 1. Convert the data into spectrograms.
