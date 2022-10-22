@@ -18,4 +18,5 @@ def read_txt_file(file_path):
 labels = read_txt_file(os.path.join(dataset_path, "harvard_sentences.txt"))
 
 print(labels)
+print(labels)
 
