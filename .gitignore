@@ -129,4 +129,14 @@ dmypy.json
 .pyre/
 
 # Datafolder
-.dataset/
+dataset/
+preprocessed_data/
+
+# wav files
+*.wav
+
+# mp3 files
+*.mp3
+
+# .npz files
+*.npz

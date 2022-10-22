@@ -3,6 +3,11 @@ import sys
 import numpy as np
 from glob import glob
 
+
+sys.path.append("..")
+
+
+
 dataset_path = os.path.join(os.getcwd(), "dataset")
 
 def read_txt_file(file_path):
@@ -12,5 +17,5 @@ def read_txt_file(file_path):
 
 labels = read_txt_file(os.path.join(dataset_path, "harvard_sentences.txt"))
 
-# Need to refine the labels list to nicely format
+print(labels)
 
