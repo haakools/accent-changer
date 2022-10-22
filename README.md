@@ -7,16 +7,16 @@ Disclaimer: I spent some time trying to setup GPU support for tensorflow, and to
 
 ## Choice of data ##
 
-The choiche of which speakers to use in the dataset was done Ad hoc, based on 
+The choice of which speakers to use in the dataset was done Ad hoc, based on hearing the first sample
 
-American speaker 7 (male) sounds good -> text to speech ????
-American speaker 8 (female) sounds good -> text to speech ????
-Bangala speaker 1 (female) sounds good, some noise in the background.
-Bangala speaker 2 (female) sounds good, some noise in the background.
-Indian speaker 1 & 2 (both female), sounds good but is text to speech
-Malayalam speaker 1,2,3 (all female), sounds good, some noise in the background
-Odiya speaker 1 (female), sounds good, some noise in the background
-Telugu speark 1 &2 (both male), sounds good, some noise in the backgruond
+* American speaker 7 (male) sounds good -> text to speech ????
+* American speaker 8 (female) sounds good -> text to speech ????
+* Bangala speaker 1 (female) sounds good, some noise in the background.
+* Bangala speaker 2 (female) sounds good, some noise in the background.
+* Indian speaker 1 & 2 (both female), sounds good but is text to speech
+* Malayalam speaker 1,2,3 (all female), sounds good, some noise in the background
+* Odiya speaker 1 (female), sounds good, some noise in the background
+* Telugu speark 1 &2 (both male), sounds good, some noise in the backgruond
 
 
 Will use american speaker 7 (male) and Telugu speaker 2 (both male)
