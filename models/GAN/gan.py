@@ -27,7 +27,6 @@ class GAN(tf.keras.Models.model):
 
     
 
-
     def train(self, x, y, epochs, batch_size):
         """
         Trains the GAN

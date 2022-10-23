@@ -2,7 +2,9 @@ import tensorflow as tf
 
 
 
-"""Function to convert a .npz dataset to a tfrecord dataset"""
+"""Function to convert a .npz dataset to a tfrecord dataset
+
+Dont know if this is really needed , but it is a good exercise i guess """
 
 
 def convert_npz_to_tfrecord(npz_path: str, tfrecord_path: str):

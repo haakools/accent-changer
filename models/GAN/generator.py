@@ -1,6 +1,7 @@
 import tensorflow as tf
 from keras.initializers import RandomNormal
 from keras.models import Input
+from keras.models import Model
 
 from keras.layers import Conv2D, Conv2DTranspose, LeakyReLU,\
     Activation, Concatenate, Dropout, BatchNormalization, LeakyReLU
@@ -13,11 +14,14 @@ from keras.layers import Conv2D, Conv2DTranspose, LeakyReLU,\
 def define_encoder_block(layer_in, n_filters, batchnorm=True):
     # weight initialization
     init = RandomNormal(stddev=0.02)
+
     # add downsampling layer
     g = Conv2D(n_filters, (4,4), strides=(2,2), padding='same', kernel_initializer=init)(layer_in)
+
     # conditionally add batch normalization
     if batchnorm:
-    g = BatchNormalization()(g, training=True)
+        g = BatchNormalization()(g, training=True)
+
     # leaky relu activation
     g = LeakyReLU(alpha=0.2)(g)
     return g
@@ -25,6 +29,7 @@ def define_encoder_block(layer_in, n_filters, batchnorm=True):
 
 # define a decoder block
 def decoder_block(layer_in, skip_in, n_filters, dropout=True):
+    """Creates an decoder block for the generator"""
     # weight initialization
     init = RandomNormal(stddev=0.02)
     # add upsampling layer
@@ -33,7 +38,7 @@ def decoder_block(layer_in, skip_in, n_filters, dropout=True):
     g = BatchNormalization()(g, training=True)
     # conditionally add dropout
     if dropout:
-    	g = Dropout(0.5)(g, training=True)
+        g = Dropout(0.5)(g, training=True)
     # merge with skip connection
     g = Concatenate()([g, skip_in])
     # relu activation
@@ -42,6 +47,12 @@ def decoder_block(layer_in, skip_in, n_filters, dropout=True):
 
 # define the standalone generator model
 def define_generator(image_shape=(256,256,3)):
+    """ Defines the generator model
+    Args:
+        image_shape (tuple): shape of the input image
+    Returns:    
+        model (tf.keras.Model): generator model
+    """
     # weight initialization
     init = RandomNormal(stddev=0.02)
     # image input

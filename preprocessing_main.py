@@ -3,6 +3,8 @@ from re import I
 import sys
 from glob import glob
 import numpy as np
+import matplotlib.pyplot as plt
+
 
 sys.path.append("..")
 from preprocessing.spectogram import convert_to_mel_spectrum
@@ -19,7 +21,7 @@ speakers = {
     },
     "male": {
         "american": "dataset/data/american/speaker_07",
-        "telugu": "dataset/data/indian/speaker_02"
+        "telugu": "dataset/data/indian/speaker_02",
     }
 }
 
@@ -34,36 +36,36 @@ for gender in speakers.keys():
         
         # Get all the file paths with glob
         file_paths = sorted(glob(os.path.join(speaker_path, "*.wav")))
-        
+
         # Load all the file_paths and convert to mel spectrum
-        print(" --- Loading data --- ")
         raw_data = [load_wav_file_from_path(file_path) for file_path in file_paths]
-        print(" --- Data loaded. ---")
 
-        # Pad the raw_data to the max length
-        sample_lengths = [len(data) for data in raw_data]
+        for i, data in enumerate(raw_data):
+            print(data.shape)
 
-        # Get the max length
-        assert len(sample_lengths) > 0, f"{speaker_path} has no data.\
-            sample_lengths : {sample_lengths}"
+        # Only keeping the first 100'000 data points
+        n_datapoints = 100000 
+        trimmed_data = [data[:n_datapoints] for data in raw_data]
+
+        # Get the max length of the spectrums
+        sample_lengths = [len(data) for data in trimmed_data]
         max_length = max(sample_lengths)
-
-        print(" --- Padding data --- ")
-        padded_data = [pad_end_of_data(data, max_length) for data in raw_data]
-        print(" --- Data padded --- ")
+        padded_data = [pad_end_of_data(data, max_length) for data in trimmed_data]
 
 
+        print(padded_data[0].shape) 
         # Convert to mel spectrum   
-        print(" --- Converting to mel spectrum --- ")
         mel_spectrums = [convert_to_mel_spectrum(data) for data in padded_data] 
-        print(" --- Data converted to mel spectrum --- ")
 
+        # printing some shapes :)
+        print(len(mel_spectrums))
+        print(mel_spectrums[0].shape)
+        print(mel_spectrums[1].shape)
 
         # Combine the mel_spectrums to a single array
-        mel_spectrums = np.array(mel_spectrums)
+        output_array = np.stack(mel_spectrums)
+        print("Output array shape: ", output_array.shape)
 
         # Save the mel_spectrums to a npz file
-        print(" --- Saving data --- ")
         target_folder = os.path.join("preprocessed_data", "mel_spectrums", gender)
-        save_npz_to_path(mel_spectrums, target_folder, accent)
-        print(" --- Data saved --- ")
+        save_npz_to_path(output_array, target_folder, accent)
