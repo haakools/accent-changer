@@ -7,10 +7,6 @@ import tqdm
 """Functions to save and load files"""
 
 
-
-
-
-
 def load_multiple_wav_files_from_path(wav_path: List[str]) -> List[np.ndarray]:
     """Loads multiple wav files from path
     Args:
@@ -25,6 +21,11 @@ def load_multiple_wav_files_from_path(wav_path: List[str]) -> List[np.ndarray]:
         wav_data.append(data)
     return wav_data
 
+def save_wave_file_to_path(data, save_to_path):
+    """Saves data to wav file"""
+    if not os.path.exists(save_to_path):
+        os.makedirs(save_to_path)
+    librosa.output.write_wav(save_to_path, data, sr=22050)
 
 def load_wav_file_from_path(wav_path):
     """Loads wav file from path

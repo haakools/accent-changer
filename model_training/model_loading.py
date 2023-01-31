@@ -1,16 +1,16 @@
 import os
 import sys
+from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
-sys.path.append("..")
 
+repoDir = os.path.abspath(Path(__file__).parent.parent)
+sys.path.append(repoDir)
 from utils.file_utilities import load_npz_from_path 
 
-
-
 if __name__ == "__main__":
-    path_american = os.path.join("..", "preprocessed_data", "mel_spectrums", "female", "american.npz")
-    path_bangla = os.path.join("..", "preprocessed_data", "mel_spectrums", "female", "bangla.npz")
+    path_american = os.path.join(repoDir, "preprocessed_data", "mel_spectrums", "female", "american.npz")
+    path_bangla = os.path.join(repoDir, "preprocessed_data", "mel_spectrums", "female", "bangla.npz")
 
     american_data = load_npz_from_path(path_american)
     bangla_data = load_npz_from_path(path_bangla)

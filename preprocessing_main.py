@@ -1,5 +1,4 @@
 import os
-from re import I
 import sys
 from glob import glob
 import numpy as np

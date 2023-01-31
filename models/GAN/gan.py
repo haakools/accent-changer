@@ -23,7 +23,7 @@ class GAN(tf.keras.Models.model):
     """
     def __init__(self, discrimnator, generator):
         super(GAN, self).__init__()
-        self.discriminator = discriminator
+        self.discriminator = discrimnator
         self.generator = generator
 
     def compile(self, d_optimizer, g_optimizer, loss_fn):
@@ -69,7 +69,7 @@ class GAN(tf.keras.Models.model):
         # train the generator (note that we should *not* update the weights of the discriminator)
         with tf.GradientTape() as tape:
             predictions = self.discriminator(self.generator(random_latent_vectors))
-            g_loss = loss_fn(misleading_labels, predictions)
+            g_loss = self.loss_fn(misleading_labels, predictions)
         grads = tape.gradient(g_loss, self.generator.trainable_weights)
         self.g_optimizer.apply_gradients(zip(grads, self.generator.trainable_weights))
         return {"d_loss": d_loss, "g_loss": g_loss}

@@ -9,17 +9,14 @@ import librosa
 sys.path.append("..")
 
 
-def convert_to_mel_spectrum(data: np.ndarray):
+def convert_to_mel_spectrum(data: np.ndarray, epsilon:float=1e-8):
     """Converts data to mel spectrum
     Args:
         data (np.ndarray) : data to convert
     Returns:
         spectrum (np.ndarray) : 2d array of spectrum
     """
-    #print(data.shape)
-    spectrum = librosa.feature.melspectrogram(y=data)
-    spectrum = np.log10(spectrum+1e-8) # Adding 1e-8 to avoid log(0)
-    return spectrum
+    return np.log10(librosa.feature.melspectrogram(y=data)+epsilon)
 
 
 def convert_to_mfcc(data: np.ndarray):
@@ -29,8 +26,7 @@ def convert_to_mfcc(data: np.ndarray):
     Returns:
         mfcc (np.ndarray) : 2d array of mfcc
     """
-    mfcc = librosa.feature.mfcc(y=data)
-    return mfcc
+    return librosa.feature.mfcc(y=data)
 
 
 def convert_mel_spectrum_to_wav(data: np.ndarray):
@@ -40,8 +36,7 @@ def convert_mel_spectrum_to_wav(data: np.ndarray):
     Returns:
         wav (np.ndarray) : 1d array of wav
     """
-    wav = librosa.feature.inverse.mel_to_audio(data)
-    return wav
+    return librosa.feature.inverse.mel_to_audio(data)
 
 def convert_mfcc_to_wav(data: np.ndarray):
     """Converst mfcc to wav
@@ -50,8 +45,7 @@ def convert_mfcc_to_wav(data: np.ndarray):
     Returns:
         wav (np.ndarray) : 1d array of wav
     """
-    wav = librosa.feature.inverse.mfcc_to_audio(data)
-    return wav
+    return librosa.feature.inverse.mfcc_to_audio(data)
 
 
 if __name__ == "__main__":
